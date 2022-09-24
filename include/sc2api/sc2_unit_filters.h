@@ -50,6 +50,14 @@ struct IsVisibleMineralPatch {
     bool operator()(const Unit& unit_) const;
 };
 
+//! Determines if the unit is a blocking mineral patch (reduced minerals)
+//! Convenience function, currently only one UnitTypeID
+struct IsBlockingMineralPatch {
+    bool operator()(const Unit& unit_) const;
+
+    bool operator()(UNIT_TYPEID type_) const;
+};
+
 //! Determines if the unit is vespene geyser,
 //! includes 'foggy' geysers (hidden under the fog of war).
 struct IsGeyser {

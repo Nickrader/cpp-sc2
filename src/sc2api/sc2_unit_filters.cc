@@ -43,17 +43,26 @@ bool IsMineralPatch::operator()(const Unit& unit_) const {
 
 bool IsMineralPatch::operator()(UNIT_TYPEID type_) const {
     return type_ == UNIT_TYPEID::NEUTRAL_BATTLESTATIONMINERALFIELD750 ||
-           type_ == UNIT_TYPEID::NEUTRAL_BATTLESTATIONMINERALFIELD ||
-           type_ == UNIT_TYPEID::NEUTRAL_LABMINERALFIELD750 ||
-           type_ == UNIT_TYPEID::NEUTRAL_LABMINERALFIELD ||
-           type_ == UNIT_TYPEID::NEUTRAL_MINERALFIELD750 ||
-           type_ == UNIT_TYPEID::NEUTRAL_MINERALFIELD ||
-           type_ == UNIT_TYPEID::NEUTRAL_PURIFIERMINERALFIELD750 ||
-           type_ == UNIT_TYPEID::NEUTRAL_PURIFIERMINERALFIELD ||
-           type_ == UNIT_TYPEID::NEUTRAL_PURIFIERRICHMINERALFIELD750 ||
-           type_ == UNIT_TYPEID::NEUTRAL_PURIFIERRICHMINERALFIELD ||
-           type_ == UNIT_TYPEID::NEUTRAL_RICHMINERALFIELD750 ||
-           type_ == UNIT_TYPEID::NEUTRAL_RICHMINERALFIELD;
+        type_ == UNIT_TYPEID::NEUTRAL_BATTLESTATIONMINERALFIELD ||
+        type_ == UNIT_TYPEID::NEUTRAL_LABMINERALFIELD750 ||
+        type_ == UNIT_TYPEID::NEUTRAL_LABMINERALFIELD ||
+        type_ == UNIT_TYPEID::NEUTRAL_MINERALFIELD750 ||
+        type_ == UNIT_TYPEID::NEUTRAL_MINERALFIELD ||
+        type_ == UNIT_TYPEID::NEUTRAL_PURIFIERMINERALFIELD750 ||
+        type_ == UNIT_TYPEID::NEUTRAL_PURIFIERMINERALFIELD ||
+        type_ == UNIT_TYPEID::NEUTRAL_PURIFIERRICHMINERALFIELD750 ||
+        type_ == UNIT_TYPEID::NEUTRAL_PURIFIERRICHMINERALFIELD ||
+        type_ == UNIT_TYPEID::NEUTRAL_RICHMINERALFIELD750 ||
+        type_ == UNIT_TYPEID::NEUTRAL_RICHMINERALFIELD ||
+        type_ == UNIT_TYPEID::NEUTRAL_MINERALFIELD450;
+}
+
+bool IsBlockingMineralPatch::operator()(const Unit& unit_) const {
+    return (*this)(unit_.unit_type);
+}
+
+bool IsBlockingMineralPatch::operator()(UNIT_TYPEID type_) const {
+    return type_ == UNIT_TYPEID::NEUTRAL_MINERALFIELD450;
 }
 
 bool IsVisibleMineralPatch::operator()(const Unit& unit_) const {
