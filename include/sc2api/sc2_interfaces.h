@@ -73,6 +73,18 @@ public:
     //!< \return A list of units that meet the conditions provided by the filter.
     virtual Units GetUnits(Filter filter) const = 0;
 
+    //! Get all units belonging to self that meet the conditions provided by the list of filters. The unit structure is const data only.
+    //! Therefore editing that data will not change any in game state. See the ActionInterface for changing Unit state.
+    //!< \param filter A functor or lambda used to filter out any unneeded units in the list.
+    //!< \return A list of units that meet the conditions provided by the filter.
+    virtual Units GetUnitsAllOf(std::initializer_list<Filter>&) const = 0;
+
+    //! Get all units belonging to self that do not meet the conditions provided by the list of filters. The unit structure is const data only.
+    //! Therefore editing that data will not change any in game state. See the ActionInterface for changing Unit state.
+    //!< \param filter A functor or lambda used to filter out any unneeded units in the list.
+    //!< \return A list of units that do not meet the conditions provided by the filter.
+    virtual Units GetUnitsNoneOf(std::initializer_list<Filter>&) const = 0;
+
     //! Get the unit state as represented by the last call to GetObservation.
     //!< \param tag Unique tag of the unit.
     //!< \return Pointer to the Unit object.

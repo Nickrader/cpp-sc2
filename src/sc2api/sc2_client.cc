@@ -143,6 +143,8 @@ public:
     Units GetUnits() const final;
     Units GetUnits(Filter filter) const final;
     Units GetUnits(Unit::Alliance alliance, Filter filter = {}) const final;
+    Units GetUnitsAllOf(std::initializer_list<Filter>& filters) const;
+    Units GetUnitsNoneOf(std::initializer_list<Filter>& filters) const;
     const Unit* GetUnit(Tag tag) const final;
     const RawActions& GetRawActions() const final { return raw_actions_; }
     const SpatialActions& GetFeatureLayerActions() const final { return feature_layer_actions_; };
@@ -236,6 +238,44 @@ Units ObservationImp::GetUnits(Filter filter) const {
             units.push_back(&unit);
         }
     });
+    return units;
+}
+
+Units ObservationImp::GetUnitsAllOf(std::initializer_list<Filter>& filters) const {
+    Units units = GetUnits();
+    Units target_container{ };
+    Units::iterator units_it = units.begin();
+
+    for(auto& filter : filters) {
+        for (units_it = units.begin(); units_it != units.end();) {
+            if (filter(**units_it)) {
+                target_container.push_back(*units_it);
+                units_it = units.erase(units_it);
+            }
+            else {
+                ++units_it;
+            }
+        };
+    }
+
+    return target_container;
+}
+
+Units ObservationImp::GetUnitsNoneOf(std::initializer_list<Filter>& filters) const {
+    Units units = GetUnits();
+    Units::iterator units_it = units.begin();
+
+    for (auto& filter : filters) {
+        for (units_it = units.begin(); units_it != units.end();) {
+            if (filter(**units_it)) {
+                units_it = units.erase(units_it);
+            }
+            else {
+                ++units_it;
+            }
+        };
+    }
+
     return units;
 }
 
