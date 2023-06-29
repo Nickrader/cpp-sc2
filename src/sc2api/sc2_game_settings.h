@@ -37,6 +37,7 @@ struct ProcessSettings {
     std::vector<std::string> extra_command_lines;
     // PID and port of all running sc2 processes.
     std::vector<ProcessInfo> process_info;
+    std::vector<std::string> lutris_runner;
 };
 
 //! Settings for an RGB rendered output.

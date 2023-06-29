@@ -55,8 +55,13 @@ public:
     //! \param path Absolute file path.
     void SetProcessPath(const std::string& path);
 
-    //! Set the correct data version of a replay to allow faster replay loading. Saves a few seconds if replay is not up
-    //! to date.
+    //! Sets the process path to wine binary
+    //! prepends command_line with wine parameters
+    //! For linux users that installed Starcraft2 via Lutris.
+  void SetLutris(const std::string& wine_path, const std::vector<std::string>& runner_args);
+
+    //! Set the correct data version of a replay to allow faster replay loading. Saves a few seconds if replay is
+    //! not up to date.
     //!  Works only in combination with correct process path set by "SetProcessPath".
     //! \param version Look in "protocol/buildinfo/versions.json" for the property "data-hash". Or read it from
     //! "ReplayInfo.data_version".
