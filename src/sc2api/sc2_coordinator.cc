@@ -41,8 +41,17 @@ int LaunchProcess(ProcessSettings& process_settings, Client* client, int window_
     pi.port = port;
 
     // Command line arguments that will be passed to sc2.
-    std::vector<std::string> cl = {"-listen", process_settings.net_address, "-port", std::to_string(pi.port)};
+    std::vector<std::string> cl;
 
+    for (auto& arg : process_settings.lutris_runner) {
+        cl.push_back(arg);
+    }
+
+    std::vector<std::string> cl_args{"-listen", process_settings.net_address, "-port", std::to_string(pi.port)};
+
+    for (auto& arg : cl_args) {
+        cl.push_back(arg);
+    }
     cl.push_back("-displayMode");
     if (process_settings.full_screen && client_num == 0)
         cl.push_back("1");
@@ -72,6 +81,12 @@ int LaunchProcess(ProcessSettings& process_settings, Client* client, int window_
         cl.push_back(std::to_string(window_start_x + window_width * (client_num - 2)));
         cl.push_back("-windowy");
         cl.push_back(std::to_string(window_start_y + window_height));
+    }
+
+    // print the args passed to launch the process
+    std::cout << "Arguments passed to execve(): " << std::endl;
+    for (auto& a : cl) {
+        std::cout << a << std::endl;
     }
 
     pi.process_path = process_settings.process_path;
@@ -860,6 +875,22 @@ void Coordinator::SetStepSize(int step_size) {
 void Coordinator::SetProcessPath(const std::string& path) {
     assert(!imp_->starcraft_started_);
     imp_->process_settings_.process_path = path;
+}
+
+void Coordinator::SetLutris() {
+    assert(getenv("WINE"));
+    const std::string wine = getenv("WINE");
+    assert(getenv("WINEPREFIX"));
+    const std::string wineprefix = getenv("WINEPREFIX");
+    const std::string drive_c = "/drive_c/Program Files (x86)/StarCraft II/Support64/";
+    const std::string switcher = "SC2Switcher_x64.exe";
+    const std::vector<std::string> runner = {"start", "/d", wineprefix + drive_c, "/unix",
+                                             wineprefix + drive_c + switcher};
+    SetProcessPath(wine);
+    assert(!imp_->starcraft_started_);
+    for (const auto& arg : runner) {
+        imp_->process_settings_.lutris_runner.push_back(arg);
+    }
 }
 
 void Coordinator::SetDataVersion(const std::string& version) {
