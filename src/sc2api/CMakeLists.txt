@@ -31,6 +31,8 @@ set(sc2api_sources
     sc2_interfaces.h
     sc2_map_info.cpp
     sc2_map_info.h
+    sc2_micro.cc
+    sc2_micro.h
     sc2_proto_interface.cc
     sc2_proto_interface.h
     sc2_proto_to_pods.cc

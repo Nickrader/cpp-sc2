@@ -1,5 +1,6 @@
 #include "sc2_common.h"
 
+#include <ostream>
 #include <random>
 #include <thread>
 
@@ -46,6 +47,11 @@ bool Point3D::operator==(const Point3D& rhs) const {
 
 bool Point3D::operator!=(const Point3D& rhs) const {
     return !(*this == rhs);
+}
+
+std::ostream& operator<<(std::ostream& os, Point3D& pt) {
+    os << "{" << pt.x << "," << pt.y << "}" << std::endl;
+    return os;
 }
 
 Point3D operator+(const Point3D& lhs, const Point3D& rhs) {
@@ -102,6 +108,11 @@ bool Point2D::operator==(const Point2D& rhs) const {
 
 bool Point2D::operator!=(const Point2D& rhs) const {
     return !(*this == rhs);
+}
+
+std::ostream& operator<<(std::ostream& os, Point2D& pt) {
+    os << "{" << pt.x << "," << pt.y << "}" << std::endl;
+    return os;
 }
 
 Point2D operator+(const Point2D& lhs, const Point2D& rhs) {

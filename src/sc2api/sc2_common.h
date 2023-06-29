@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
+#include <ostream>
 
 namespace sc2 {
 
@@ -32,6 +33,7 @@ struct Point3D {
     bool operator!=(const Point3D& rhs) const;
 };
 
+std::ostream& operator<<(std::ostream& os, Point3D& pt);
 Point3D operator+(const Point3D& lhs, const Point3D& rhs);
 Point3D operator-(const Point3D& lhs, const Point3D& rhs);
 Point3D operator*(const Point3D& lhs, float rhs);
@@ -65,6 +67,7 @@ struct Point2D {
     bool operator!=(const Point2D& rhs) const;
 };
 
+std::ostream& operator<<(std::ostream& os, Point2D& pt);
 Point2D operator+(const Point2D& lhs, const Point2D& rhs);
 Point2D operator-(const Point2D& lhs, const Point2D& rhs);
 Point2D operator*(const Point2D& lhs, float rhs);
