@@ -16,11 +16,20 @@ set(sc2test_sources
     test_unit_command_common.cc
     test_unit_command.cc)
 
+set(unittest_sources
+    unit_tests/sample_tests.cpp
+    unit_tests/test_unit_filters.cpp
+    unit_tests/test_fixture_filters.cpp)
+
+enable_testing()
+
 add_executable(all_tests ${sc2test_sources})
+add_executable(unit_tests ${unittest_sources})
 
 target_include_directories(all_tests PRIVATE "${PROJECT_SOURCE_DIR}/examples/common")
 
 set_target_properties(all_tests PROPERTIES FOLDER tests)
+set_target_properties(unit_tests PROPERTIES FOLDER unit_tests)
 
 if (BUILD_SC2_RENDERER)
     target_sources(all_tests PRIVATE test_rendered.cc)
@@ -28,3 +37,4 @@ if (BUILD_SC2_RENDERER)
 endif ()
 
 target_link_libraries(all_tests sc2api sc2lib sc2utils)
+target_link_libraries(unit_tests gtest_main gmock_main sc2api sc2lib sc2utils)

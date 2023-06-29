@@ -18,6 +18,12 @@ endif ()
 
 project(cpp-sc2)
 
+# TODO:(Nickrader) should this be a command line option passed instead?
+# -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+# export compile commands (emacs); so lsp-mode can find libraries.
+# option didn't work at end-of-file, not sure how close to project() it should be?
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 include(FetchContent)
 
 option(BUILD_SC2_RENDERER "Build SC2 Renderer library" ON)
@@ -88,6 +94,7 @@ include(sc2protocol)
 if (BUILD_SC2_RENDERER)
     include(SDL)
 endif ()
+include(googletest)
 
 # cpp-sc2 libraries
 add_subdirectory(src)
