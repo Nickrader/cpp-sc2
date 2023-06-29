@@ -41,8 +41,17 @@ int LaunchProcess(ProcessSettings& process_settings, Client* client, int window_
     pi.port = port;
 
     // Command line arguments that will be passed to sc2.
-    std::vector<std::string> cl = {"-listen", process_settings.net_address, "-port", std::to_string(pi.port)};
+    std::vector<std::string> cl;
 
+    for(auto& arg : process_settings.lutris_runner) {
+      cl.push_back(arg);
+    }
+
+    std::vector<std::string> cl_args{"-listen", process_settings.net_address, "-port", std::to_string(pi.port)};
+
+    for(auto& arg : cl_args) {
+      cl.push_back(arg);
+    }
     cl.push_back("-displayMode");
     if (process_settings.full_screen && client_num == 0)
         cl.push_back("1");
@@ -73,6 +82,10 @@ int LaunchProcess(ProcessSettings& process_settings, Client* client, int window_
         cl.push_back("-windowy");
         cl.push_back(std::to_string(window_start_y + window_height));
     }
+
+    //print the args passed to launch the process
+    std::cout << "Arguments passed to execve(): " << std::endl;
+    for(auto& a : cl) {std::cout << a << std::endl;}
 
     pi.process_path = process_settings.process_path;
     pi.process_id = StartProcess(process_settings.process_path, cl);
@@ -860,6 +873,15 @@ void Coordinator::SetStepSize(int step_size) {
 void Coordinator::SetProcessPath(const std::string& path) {
     assert(!imp_->starcraft_started_);
     imp_->process_settings_.process_path = path;
+}
+
+void Coordinator::SetLutris(const std::string& wine_path, const std::vector<std::string>& runner_args) {
+    SetProcessPath(wine_path);
+    assert(!imp_->starcraft_started_);
+    for(auto& arg : runner_args) {
+      imp_->process_settings_
+	.lutris_runner.push_back(arg);
+    }
 }
 
 void Coordinator::SetDataVersion(const std::string& version) {
