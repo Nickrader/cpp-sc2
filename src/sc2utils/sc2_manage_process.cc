@@ -379,10 +379,22 @@ int _kbhit() {
     return bytesWaiting;
 }
 
+  // TODO(Nickrader): Should use something else than __linux__
+#if defined (__linux__)
+std::string GetDisplayEnv() {
+  //  if(getenv("WINELINUX") == "true") { // Didn't work
+    std::string result = "DISPLAY=";
+    result += getenv("DISPLAY");
+  return result ;
+  //}
+};
+#endif
+
 uint64_t StartProcess(const std::string& process_path, const std::vector<std::string>& command_line) {
     std::vector<char*> char_list;
     // execve expects the process path to be the first argument in the list.
     char_list.push_back(const_cast<char*>(process_path.c_str()));
+
     for (const auto& s : command_line) {
         char_list.push_back(const_cast<char*>(s.c_str()));
     }
@@ -390,10 +402,16 @@ uint64_t StartProcess(const std::string& process_path, const std::vector<std::st
     // List needs to be null terminated for execve.
     char_list.push_back(nullptr);
 
+    // Minimal environment needed to run: display. 
+    std::vector<char *> envp;
+    std::string display = GetDisplayEnv();
+    envp.push_back(const_cast<char*>(display.c_str()));
+    envp.push_back(nullptr);
+
     // Start the process.
     const pid_t p = fork();
     if (p == 0) {
-        if (execve(char_list[0], &char_list[0], nullptr) == -1) {
+        if (execve(char_list[0], &char_list[0], &envp[0]) == -1) {
             std::cerr << "Failed to execute process " << char_list[0] << " error: " << strerror(errno) << std::endl;
             exit(-1);
         }
