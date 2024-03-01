@@ -150,7 +150,7 @@ INSTANTIATE_TYPED_TEST_SUITE_P(IntDblTag, TPTestTags, Numbers);
 class UnitWrapper : public sc2::Unit {
 public:
     virtual ~UnitWrapper() = default;
-    virtual bool IsBuildFinished() const = 0;
+    [[nodiscard("Hell, it's about damn time.")]] virtual bool IsBuildFinished() const = 0;
 };
 
 class MockUnitWrapper : public UnitWrapper {
@@ -175,7 +175,7 @@ TEST(MockUnitTest, finishedBuilding) {
 
     EXPECT_EQ(true, mockUnit.IsBuildFinished());
 };
-
+;
 //// Interfaces.h; sc2::ObservationInterface;
 //// it's a pure virtual class, however, requires ALL members be overridden
 //// Both ways, same error.
