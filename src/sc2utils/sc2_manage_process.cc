@@ -406,7 +406,8 @@ uint64_t StartProcess(const std::string& process_path, const std::vector<std::st
     std::vector<char *> envp;
     std::string display = GetDisplayEnv();
     envp.push_back(const_cast<char*>(display.c_str()));
-    std::string suppress_wine_errors = "WINEDEBUG=fixme-all";
+    std::string suppress_wine_errors = "WINEDEBUG=-fixme";
+    //std::string suppress_wine_errors = "WINEDEBUG=-all";
     envp.push_back(const_cast<char*>(suppress_wine_errors.c_str()));
     envp.push_back(nullptr);
 
