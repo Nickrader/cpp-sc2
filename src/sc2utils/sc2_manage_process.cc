@@ -405,16 +405,20 @@ uint64_t StartProcess(const std::string& process_path, const std::vector<std::st
     // Minimal environment needed to run: display. 
     std::vector<char *> envp;
     std::string display = GetDisplayEnv();
+    std::cout << "Display: " << display << std::endl;
     envp.push_back(const_cast<char*>(display.c_str()));
     std::string suppress_wine_errors = "WINEDEBUG=fixme-all";
     //std::string suppress_wine_errors = "WINEDEBUG=-all";
     envp.push_back(const_cast<char*>(suppress_wine_errors.c_str()));
+    std::string term = "TERM=xterm";
+    envp.push_back(const_cast<char*>(term.c_str()));
     envp.push_back(nullptr);
 
     // Start the process.
     const pid_t p = fork();
     if (p == 0) {
-        if (execve(char_list[0], &char_list[0], &envp[0]) == -1) {
+      //if (execve(char_list[0], &char_list[0], &envp[0]) == -1) {
+      if (execv(char_list[0], &char_list[0]) == -1) {
             std::cerr << "Failed to execute process " << char_list[0] << " error: " << strerror(errno) << std::endl;
             exit(-1);
         }

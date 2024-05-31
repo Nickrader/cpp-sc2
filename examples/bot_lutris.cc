@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
     FooBot bot;
 
     // Define
-    const std::string wine = "/home/leon/.local/share/lutris/runners/wine/wine-ge-8-26-x86_64/bin/wine64";
+    const std::string wine = "/home/leon/.local/share/lutris/runners/wine/wine-ge-8-26-x86_64/bin/wine";
     //    const std::string wine = "/usr/bin/wine"; // 
 
     // {"start","/d","/path/to/Support64/","/unix","/path/to/SC2Switcher"}
