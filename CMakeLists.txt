@@ -92,7 +92,8 @@ endif ()
 # cpp-sc2 libraries
 add_subdirectory(src)
 
-
+###----------------------------------------
+#https://github.com/threeal/deb-cpack-template/blob/main/README.md
 set(CPACK_GENERATOR "DEB")
 set(CPACK_DEBIAN_FILE_NAME DEB-DEFAULT)
 set(CPACK_DEBIAN_PACKAGE_NAME "")
@@ -112,4 +113,4 @@ set(CPACK_DEBIAN_PACKAGE_DEPENDS "libfoo, libgoo (>= 1.2)")
 include(CPack)
 # Naive Attempt, see what we see.
 # https://github.com/threeal/deb-cpack-template/blob/main/CMakeLists.txt
-
+###----------------------------------------
