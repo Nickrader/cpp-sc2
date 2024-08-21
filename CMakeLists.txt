@@ -91,3 +91,25 @@ endif ()
 
 # cpp-sc2 libraries
 add_subdirectory(src)
+
+
+set(CPACK_GENERATOR "DEB")
+set(CPACK_DEBIAN_FILE_NAME DEB-DEFAULT)
+set(CPACK_DEBIAN_PACKAGE_NAME "")
+
+set(CPACK_DEBIAN_PACKAGE_VERSION 1.0.0)
+set(CPACK_DEBIAN_PACKAGE_RELEASE 1)
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "some short description")
+
+set(CPACK_PACKAGE_DESCRIPTION
+"some very long long
+long long description")
+
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Your Name <your@email.com>")
+set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://something.org/")
+
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libfoo, libgoo (>= 1.2)")
+include(CPack)
+# Naive Attempt, see what we see.
+# https://github.com/threeal/deb-cpack-template/blob/main/CMakeLists.txt
+
