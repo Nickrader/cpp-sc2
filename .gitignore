@@ -72,3 +72,4 @@ package-lock.json
 
 # Clangd cache
 .cache/
+a.sh
