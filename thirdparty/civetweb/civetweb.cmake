@@ -15,11 +15,6 @@ set(CIVETWEB_ENABLE_IPV6 OFF CACHE BOOL "" FORCE)
 
 # Apply source code tweaks
 set(workdir "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/civetweb")
-set(civetweb_patches
-    "${CMAKE_CURRENT_LIST_DIR}/0001-Setting-TCP_NODELAY-on-outbound-connections.patch"
-    "${CMAKE_CURRENT_LIST_DIR}/0002-Moving-include-CTest-into-if-testing-guard.patch"
-)
-set(patch_executor git apply --ignore-whitespace ${civetweb_patches})
 
 if (APPLE)
     add_compile_options(
@@ -34,9 +29,8 @@ endif ()
 
 FetchContent_Declare(
     civetweb
-    GIT_REPOSITORY https://github.com/civetweb/civetweb.git
-    GIT_TAG 1fb204ecc630515d53291f58955c799785cb90c7
-    PATCH_COMMAND ${patch_executor}
+    GIT_REPOSITORY https://github.com/cpp-sc2/civetweb.git
+    GIT_TAG 61fc8f811acb3da60d313d5459aa93c9e85fe32c}
 )
 FetchContent_MakeAvailable(civetweb)
 
