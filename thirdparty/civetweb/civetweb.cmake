@@ -13,9 +13,6 @@ set(CIVETWEB_ENABLE_WEBSOCKETS ON CACHE BOOL "" FORCE)
 # Disable IPv6 as we use only IPv4
 set(CIVETWEB_ENABLE_IPV6 OFF CACHE BOOL "" FORCE)
 
-# Apply source code tweaks
-set(workdir "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/civetweb")
-
 if (APPLE)
     add_compile_options(
         -Wno-expansion-to-defined
@@ -30,7 +27,7 @@ endif ()
 FetchContent_Declare(
     civetweb
     GIT_REPOSITORY https://github.com/cpp-sc2/civetweb.git
-    GIT_TAG 61fc8f811acb3da60d313d5459aa93c9e85fe32c}
+    GIT_TAG 61fc8f811acb3da60d313d5459aa93c9e85fe32c
 )
 FetchContent_MakeAvailable(civetweb)
 
