@@ -1,7 +1,11 @@
 #include <iostream>
+#include <string>
 #include <vector>
 
 #include "sc2api/sc2_api.h"
+#include "sc2api/sc2_common.h"
+#include "sc2api/sc2_interfaces.h"
+#include "sc2api/sc2_map_info.h"
 #include "sc2lib/sc2_lib.h"
 #include "sc2utils/sc2_manage_process.h"
 
@@ -22,7 +26,8 @@ public:
         if (game_loop % 100 == 0) {
             sc2::Units units = Observation()->GetUnits(sc2::Unit::Alliance::Self);
             for (auto& it_unit : units) {
-                sc2::Point2D target = sc2::FindRandomLocation(Observation()->GetGameInfo());
+	      sc2::GameInfo info = Observation()->GetGameInfo();
+	      sc2::Point2D target = info.enemy_start_locations.front();
                 Actions()->UnitCommand(it_unit, sc2::ABILITY_ID::SMART, target);
             }
         }
@@ -46,16 +51,20 @@ int main(int argc, char* argv[]) {
     // Add the custom bot, it will control the players.
     FooBot bot;
 
-    // Define
-    const std::string wine = "/home/ransak/.local/share/lutris/runners/wine/wine-ge-8-26-x86_64/bin/wine64";
-    //    const std::string wine = "/usr/bin/wine"; // 
+    // // Define
+    // const std::string wine = "/home/ransak/.local/share/lutris/runners/wine/wine-ge-8-26-x86_64/bin/wine64";
+    // //    const std::string wine = "/usr/bin/wine"; //
 
-    // {"start","/d","/path/to/Support64/","/unix","/path/to/SC2Switcher"}
-    const std::vector<std::string> runner = {
-        "start", "/d", "/home/ransak/Games/battlenet/drive_c/Program Files (x86)/StarCraft II/Support64/", "/unix",
-        "/home/ransak/Games/battlenet/drive_c/Program Files (x86)/StarCraft II/Support64/SC2Switcher_x64.exe"};
-    coordinator.SetLutris(wine, runner);
-
+    // // {"start","/d","/path/to/Support64/","/unix","/path/to/SC2Switcher"}
+    // const std::vector<std::string> runner = {
+    //     "start", "/d", "/home/ransak/Games/battlenet/drive_c/Program Files (x86)/StarCraft II/Support64/", "/unix",
+    //     "/home/ransak/Games/battlenet/drive_c/Program Files (x86)/StarCraft II/Support64/SC2Switcher_x64.exe"};
+    // coordinator.SetLutris(wine, runner);
+    // std::string a;
+    // std::vector<std::string> b;
+    // coordinator.SetLutris(a, b);
+    coordinator.SetLutris();
+			  
     coordinator.SetParticipants({CreateParticipant(sc2::Race::Terran, &bot), CreateComputer(sc2::Race::Terran)});
 
     // Start the game.
