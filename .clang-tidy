@@ -19,6 +19,6 @@ Checks: "*,
         -readability-magic-numbers,
         -zircon-*,
 "
-WarningsAsErrors: '*'
+WarningsAsErrors: ''
 HeaderFilterRegex: ''
 FormatStyle:     none

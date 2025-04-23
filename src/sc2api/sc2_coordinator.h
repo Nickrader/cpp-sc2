@@ -58,7 +58,8 @@ public:
     //! Sets the process path to wine binary
     //! prepends command_line with wine parameters
     //! For linux users that installed Starcraft2 via Lutris.
-  void SetLutris(std::string wine_path = "", std::vector<std::string> runner_args = std::vector<std::string>());
+    //! Call without arguments for shell supplied environment variables: WINE, WINEPREFIX
+    void SetLutris(const std::string wine_path = "", const std::vector<std::string> runner_args = std::vector<std::string>());
 
     //! Set the correct data version of a replay to allow faster replay loading. Saves a few seconds if replay is
     //! not up to date.

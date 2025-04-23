@@ -877,8 +877,8 @@ void Coordinator::SetProcessPath(const std::string& path) {
     imp_->process_settings_.process_path = path;
 }
 
-void Coordinator::SetLutris(std::string wine_path,
-                            std::vector<std::string> runner_args) {
+void Coordinator::SetLutris(const std::string wine_path,
+                            const std::vector<std::string> runner_args) {
     if (wine_path.empty()) {
         std::string wine_path = getenv("WINE");
         SetProcessPath(wine_path);
